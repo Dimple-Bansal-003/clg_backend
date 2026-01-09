@@ -6,8 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.entity.RoleEntity;
+import com.entity.SubjectEntity;
 import com.entity.UserEntity;
 import com.repository.RoleRepo;
+import com.repository.SubjectRepo;
 import com.repository.UserRepo;
 
 @Configuration
@@ -17,7 +19,9 @@ public class DataInitializer {
     CommandLineRunner initData(
             RoleRepo roleRepo,
             UserRepo userRepo,
-            PasswordEncoder passwordEncoder
+            PasswordEncoder passwordEncoder,
+            SubjectRepo subjectRepo
+            
     ) {
         return args -> {
 
@@ -33,6 +37,22 @@ public class DataInitializer {
 
             RoleEntity studentRole = roleRepo.findByRoleName("STUDENT")
             	    .orElseGet(() -> roleRepo.save(new RoleEntity(null, "STUDENT")));
+           
+            // ===== SUBJECTS (Marks ke liye) =====
+            if (subjectRepo.findByName("Mathematics").isEmpty()) {
+                subjectRepo.save(new SubjectEntity(null, "Mathematics", 100, 40));
+            }
+            if (subjectRepo.findByName("Physics").isEmpty()) {
+                subjectRepo.save(new SubjectEntity(null, "Physics", 50, 20));
+            }
+            if (subjectRepo.findByName("Chemistry").isEmpty()) {
+                subjectRepo.save(new SubjectEntity(null, "Chemistry", 50, 20));
+            }
+            if (subjectRepo.findByName("Computer Science").isEmpty()) {
+                subjectRepo.save(new SubjectEntity(null, "Computer Science", 25, 10));
+            }
+
+            
             // ===== USERS =====
             if (userRepo.findByUsername("Admin").isEmpty()) {
                 userRepo.save(new UserEntity(

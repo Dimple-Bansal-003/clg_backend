@@ -23,5 +23,8 @@ public interface StudentAcademicRepo extends JpaRepository<StudentAcademicEntity
 		        @Param("academicYear") String academicYear,
 		        @Param("semester") int semester,
 		        @Param("division") String division);
+	
+	    List<StudentAcademicEntity> findByAcademicYear_YearLabelAndSemester_SemesterNoAndDivision(
+	    		String yearLabel , Integer semesterNo , String division);
 
 }

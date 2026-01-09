@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/faculty/all").permitAll()
                 .requestMatchers("/error").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/marks/**").permitAll()
                 .anyRequest().authenticated()
             )
             .httpBasic(basic -> basic.disable());
