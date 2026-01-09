@@ -17,7 +17,8 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
+
 public class AuthController {
 
     private final AuthService authService;
@@ -25,10 +26,16 @@ public class AuthController {
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
-
+   
     @PostMapping("/login")
    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request){
-    	LoginResponse response = authService.login(request);
-    	return ResponseEntity.ok(response);
+    	System.out.println("🔍 LOGIN: " + request.getUsername() + " | " + request.getPassword().substring(0,3) + "***");
+    	try {
+            LoginResponse response = authService.login(request);
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            LoginResponse errorResponse = new LoginResponse(e.getMessage(), null, null);
+            return ResponseEntity.badRequest().body(errorResponse);  // 400 with message
+        }
     }
 }

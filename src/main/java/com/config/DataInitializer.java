@@ -31,6 +31,8 @@ public class DataInitializer {
             RoleEntity staffRole = roleRepo.findByRoleName("STAFF")
                     .orElseGet(() -> roleRepo.save(new RoleEntity(null, "STAFF")));
 
+            RoleEntity studentRole = roleRepo.findByRoleName("STUDENT")
+            	    .orElseGet(() -> roleRepo.save(new RoleEntity(null, "STUDENT")));
             // ===== USERS =====
             if (userRepo.findByUsername("Admin").isEmpty()) {
                 userRepo.save(new UserEntity(

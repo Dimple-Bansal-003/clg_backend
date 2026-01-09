@@ -1,6 +1,10 @@
 package com.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Entity
@@ -12,22 +16,27 @@ public class UserEntity {
     @Column(name = "user_id")
     private Long id;
     
-    @Column(name = "username")
+    @NotBlank
+    @Size(min=3,max=50)
+    @Column(unique=true)
     private String username;
     
+    @NotBlank
+    @Size(min=8,max=100)
     @Column(name = "password")
     private String password;
     
-    @Column(name = "is_active", columnDefinition = "BIT")
-    private Boolean isActive;
-    
-    @Column(name = "email")
+    @NotNull
+    @Column(name = "is_active", columnDefinition = "BIT default 1")
+    private Boolean isActive=true;
+   
+    @Email
+    @Size(max=100) 
     private String email;
     
-    @ManyToOne
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private RoleEntity role;
     
-    // Add getter if Lombok issues
-    public Boolean getIsActive() { return isActive != null ? isActive : false; }
+    
 }

@@ -99,7 +99,20 @@
     		<groupId>org.glassfish.web</groupId>
     		<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 		</dependency>
-		
+	<!-- Apache POI for Excel -->
+   
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>5.3.0</version>
+    </dependency>
+    
+    	<!-- Apache POI for Excel -->
+		<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml-full</artifactId>
+    <version>5.3.0</version>
+</dependency>
 		<!-- Spring Security -->
 <dependency>
     <groupId>org.springframework.boot</groupId>
