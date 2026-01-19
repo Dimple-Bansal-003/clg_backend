@@ -30,6 +30,10 @@ public class StudentEntity
 	  @Column(name = "student_email")
 	String email;
 	  
+	  @Column(name = "phone", length = 15)
+	  String phone;
+	  
+	   @Column(name = "rollNo", unique = true)
 	  String rollNo;
 	  
 	  Integer enrollmentYear;

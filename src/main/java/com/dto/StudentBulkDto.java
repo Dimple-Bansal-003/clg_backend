@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-@Valid
+
 @Data
 public class StudentBulkDto {
 
@@ -25,6 +25,8 @@ public class StudentBulkDto {
 	@Max(8)
 	private int semester;
 	
+	private String division;
+	  
 	@NotEmpty
 	private List<@Valid StudentJson> students;
 	

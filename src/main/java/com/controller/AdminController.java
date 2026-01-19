@@ -17,8 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.dto.ExcelUploadRequest;
 import com.dto.StudentBulkDto;
+import com.service.EmailService;
 import com.service.StudentService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -29,6 +31,8 @@ import lombok.RequiredArgsConstructor;
 public class AdminController {
 
 private final StudentService studentService;
+
+private final EmailService emailService;
     
     @PostMapping("/upload-students")
     public ResponseEntity<String> uploadStudents(
@@ -40,7 +44,7 @@ private final StudentService studentService;
     
   
     @PostMapping("/students/bulk")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> bulkStudents(@RequestBody @Valid StudentBulkDto dto){
     	return ResponseEntity.ok(studentService.saveBulkStudents(dto));
     }
@@ -54,4 +58,19 @@ private final StudentService studentService;
         List<Map<String, Object>> students = studentService.getStudentsByAcademicYearSemesterDivision(academicYear, semester, division);
         return ResponseEntity.ok(students);
     }
+    
+    @PostMapping("/test-email")
+    public ResponseEntity<String> testEmail(HttpServletRequest request) {
+        String to = request.getParameter("to");
+        System.out.println("🔍 DEBUG to param: '" + to + "'");
+        System.out.println("🔍 Content-Type: " + request.getContentType());
+        
+        if (to == null || to.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("❌ to parameter missing: " + to);
+        }
+        
+        emailService.sendCredentials(to.trim(), "testuser", "Test123!", "TEST-001", "Test Student");
+        return ResponseEntity.ok("✅ Email queued to: " + to);
+    }
 }
+

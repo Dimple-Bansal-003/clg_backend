@@ -27,6 +27,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/students/bulk").permitAll()
                 .requestMatchers("/api/students").permitAll()
                 .requestMatchers("/api/faculty/all").permitAll()
+                .requestMatchers("/api/test-email").permitAll()
                 .requestMatchers("/error").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/marks/**").permitAll()
